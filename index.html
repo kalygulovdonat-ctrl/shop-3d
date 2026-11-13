@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Обжиг — керамика ручной работы</title>
+<meta name="description" content="Магазин керамики «Обжиг»: пять форм, шесть глазурей. Покрутите вазу в 3D, выберите глазурь и закажите.">
+<meta name="theme-color" content="#e7e0d3">
+<meta property="og:title" content="Обжиг — керамика ручной работы">
+<meta property="og:description" content="Пять форм, шесть глазурей. Каждую можно покрутить в 3D.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body class="is-loading">
+<a class="skip" href="#catalog">Перейти к каталогу</a>
+
+<header class="top">
+  <a class="logo" href="#stage">Обжиг</a>
+  <nav class="top__nav" aria-label="Основная навигация">
+    <a href="#catalog">Каталог</a>
+    <a href="#craft">Мастерская</a>
+    <a href="#delivery">Доставка</a>
+  </nav>
+  <button class="cartbtn" id="cartOpen" type="button" aria-haspopup="dialog" aria-controls="cart">
+    Корзина <span class="cartbtn__n" id="cartCount">0</span>
+  </button>
+</header>
+
+<main>
+  <!-- ВИТРИНА -->
+  <section class="stage" id="stage" aria-label="Витрина">
+    <div class="stage__view" id="view">
+      <h1 class="stage__name" id="pName">Луна</h1>
+      <canvas id="scene" aria-label="Трёхмерная модель изделия. Потяните, чтобы повернуть."></canvas>
+      <div class="stage__nav">
+        <button class="round" id="prev" type="button" aria-label="Предыдущее изделие">←</button>
+        <span class="stage__idx" aria-live="polite"><b id="pIdx">01</b> / 05</span>
+        <button class="round" id="next" type="button" aria-label="Следующее изделие">→</button>
+      </div>
+      <p class="stage__hint" aria-hidden="true">Потяните, чтобы повернуть</p>
+    </div>
+
+    <div class="stage__info swap">
+      <p class="label" id="pType">Ваза</p>
+      <p class="stage__desc" id="pDesc"></p>
+      <dl class="specs">
+        <div><dt>Высота</dt><dd id="pH"></dd></div>
+        <div><dt>Диаметр</dt><dd id="pD"></dd></div>
+        <div><dt>Объём</dt><dd id="pV"></dd></div>
+      </dl>
+    </div>
+
+    <div class="stage__buy">
+      <fieldset class="glazes">
+        <legend class="label">Глазурь — <span id="gName">Молоко</span></legend>
+        <div class="glazes__row" id="glazes"></div>
+      </fieldset>
+      <p class="price swap" id="pPrice"></p>
+      <button class="btn" id="add" type="button">В корзину</button>
+      <p class="note">Тянем на круге вручную — срок 5–7 дней</p>
+    </div>
+  </section>
+
+  <!-- КАТАЛОГ -->
+  <section class="sec" id="catalog">
+    <header class="sec__head">
+      <p class="label">Каталог</p>
+      <h2>Пять форм.<br>Шесть глазурей.</h2>
+    </header>
+    <ul class="grid" id="grid"></ul>
+  </section>
+
+  <!-- МАСТЕРСКАЯ -->
+  <section class="sec sec--craft" id="craft">
+    <header class="sec__head">
+      <p class="label">Мастерская</p>
+      <h2>Руки, глазурь<br>и 1240 градусов.</h2>
+    </header>
+    <ol class="steps">
+      <li><span>01</span><h3>Круг</h3><p>Форму тянем руками, поэтому двух одинаковых вещей не бывает. Следы пальцев на стенках оставляем нарочно.</p></li>
+      <li><span>02</span><h3>Глазурь</h3><p>Окунаем вручную и не доходим до дна. Неровная граница глазури и живой глины — подпись мастера.</p></li>
+      <li><span>03</span><h3>Обжиг</h3><p>14 часов при 1240 °C. После этого вещь не боится посудомойки, духовки и горячего чая.</p></li>
+    </ol>
+  </section>
+
+  <footer class="foot" id="delivery">
+    <div>
+      <p class="label">Доставка</p>
+      <p>Курьером и в пункты выдачи. Каждую вещь упаковываем в стружку и двойной картон. Разбилась в дороге — пришлём новую.</p>
+    </div>
+    <div>
+      <p class="label">Контакты</p>
+      <p><a href="mailto:hello@example.com">hello@example.com</a><br><a href="tel:+70000000000">+7 000 000-00-00</a></p>
+    </div>
+    <p class="foot__c">© 2026 Обжиг</p>
+  </footer>
+</main>
+
+<!-- КОРЗИНА -->
+<div class="scrim" id="scrim" hidden></div>
+<aside class="cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
+  <header class="cart__head">
+    <h2 id="cartTitle">Корзина</h2>
+    <button class="round" id="cartClose" type="button" aria-label="Закрыть корзину">×</button>
+  </header>
+  <ul class="cart__list" id="cartList"></ul>
+  <p class="cart__empty" id="cartEmpty">Пока пусто. Выберите форму и глазурь на витрине.</p>
+  <footer class="cart__foot">
+    <p class="cart__total"><span>Итого</span><b id="cartTotal">0 ₽</b></p>
+    <button class="btn" id="checkout" type="button">Оформить заказ</button>
+    <p class="note" id="checkoutNote" role="status" aria-live="polite"></p>
+  </footer>
+</aside>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
